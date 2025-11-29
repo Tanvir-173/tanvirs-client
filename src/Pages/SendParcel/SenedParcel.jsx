@@ -1,22 +1,23 @@
 import React from 'react';
 import { useForm, useWatch } from 'react-hook-form';
-import { useLoaderData } from 'react-router';
+import { useLoaderData, useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import useAuth from '../../Hooks/useAuth'
 
 
 const SenedParcel = () => {
-    const { 
-        register, 
+    const {
+        register,
         handleSubmit,
-         control, 
+        control,
         //formState: { errors } 
     } = useForm()
 
-    const { user } =useAuth()
-   
+    const { user } = useAuth()
+
     const axiosSecure = useAxiosSecure()
+    const navigate =useNavigate()
 
 
 
@@ -59,6 +60,8 @@ const SenedParcel = () => {
         }
 
         console.log('cost', cost)
+        data.cost = cost
+        // data.createdAt = new Date()
         Swal.fire({
             title: "Agree wtih the cost?",
             text: `You will be charged ${cost} taka!`,
@@ -66,14 +69,27 @@ const SenedParcel = () => {
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "I agree!"
+            confirmButtonText: "Confirm and continue payment!"
         }).then((result) => {
             if (result.isConfirmed) {
 
-                axiosSecure.post('/parcels',data)
-                .then(res=>{
-                    console.log('after saving parcel',res.data)
-                })
+                axiosSecure.post('/parcels', data)
+                    .then(res => {
+                        
+                        console.log('after saving parcel', res.data)
+                        if (res.data.insertedId) {
+                            navigate('/dashboard/my-parcels')
+                            Swal.fire({
+                                position: "top-end",
+                                icon: "success",
+                                title: "Parcel has creatd.please pay",
+                                showConfirmButton: false,
+                                timer: 2500
+                            });
+
+                        }
+
+                    })
                 // Swal.fire({
                 //     title: "Deleted!",
                 //     text: "Your file has been deleted.",
@@ -121,13 +137,13 @@ const SenedParcel = () => {
                         <h4 className="text-2xl font-semibold">Sender Details</h4>
                         <label className="label">Sender Name</label>
                         <input type="text" {...register('senderName')} className="input w-full"
-                        defaultValue={user?.displayName}
-                        placeholder="Sender Name" />
+                            defaultValue={user?.displayName}
+                            placeholder="Sender Name" />
 
                         <label className="label">Sender Email</label>
                         <input type="text" {...register('senderEmail')} className="input w-full"
-                        defaultValue={user?.email}
-                        placeholder="Sender Email" />
+                            defaultValue={user?.email}
+                            placeholder="Sender Email" />
 
                         <fieldset className="fieldset">
                             <legend className="fieldset-legend">Sender Regions</legend>
