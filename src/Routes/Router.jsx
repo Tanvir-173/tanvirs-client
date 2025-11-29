@@ -13,6 +13,7 @@ import Myparcels from "../Pages/Dashboard/MyParcels/Myparcels";
 import Payment from "../Pages/Dashboard/Payment/Payment";
 import PaymentSuccess from "../Pages/Dashboard/Payment/paymentSuccess";
 import PaymentCancelled from "../Pages/Dashboard/Payment/PaymentCancelled";
+import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
 
 
 
@@ -31,7 +32,8 @@ export const router = createBrowserRouter([
          path:'rider',
          element:<PrivateRoute>
           <Rider></Rider>
-         </PrivateRoute>
+         </PrivateRoute>,
+          loader:() =>fetch('/ServiceCenter.json').then(res=>res.json())
 
       },
       {
@@ -85,6 +87,12 @@ export const router = createBrowserRouter([
         path:'payment/:parcelId',
         Component:Payment
       },
+      {    
+        path:'payment-history',
+        Component:PaymentHistory
+
+      },
+
       {
         path:'payment-success',
         Component:PaymentSuccess

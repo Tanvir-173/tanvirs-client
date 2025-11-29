@@ -1,24 +1,40 @@
 import React from 'react';
 import useAuth from '../../../Hooks/useAuth';
 import { useLocation, useNavigate } from 'react-router';
+import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 
 const SocialLogin = () => {
     const { singInGoogle } = useAuth()
+    const axiosSecure=useAxiosSecure()
     const location = useLocation()
     const navigate = useNavigate()
-    console.log('location in socila',location)
+    console.log('location in socila', location)
 
-    const handleGoogleSignIn=()=>{
-         singInGoogle().
-         then(result=>{
-            console.log(result)
-            navigate(location?.state || '/')
-         }).catch(error=>{
-            console.log(error)
-         })
+    const handleGoogleSignIn = () => {
+        singInGoogle().
+            then(result => {
+                console.log(result)
+                
+                const userInfo = {
+                    email: result.user.email,
+                    displayName: result.user.displayName,
+                    photoURL:result.user.photoURL
 
-         
-    } 
+                }
+
+                axiosSecure.post('/users',userInfo)
+                .then(res =>{
+
+                    console.log('user data has been Stored',res.data)
+                    navigate(location?.state || '/')
+                })
+
+            }).catch(error => {
+                console.log(error)
+            })
+
+
+    }
 
     return (
         <div className="text-center pb-8">
