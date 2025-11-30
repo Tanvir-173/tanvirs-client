@@ -3,7 +3,7 @@ import { Link, NavLink, Outlet } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faBox } from '@fortawesome/free-solid-svg-icons';
 import { CiDeliveryTruck } from "react-icons/ci";
-import { FaRegCreditCard } from "react-icons/fa";
+import { FaMotorcycle, FaRegCreditCard } from "react-icons/fa";
 
 
 
@@ -49,6 +49,12 @@ const DashboardLayout = () => {
                             <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Payment History" to="/dashboard/payment-history">
                             <FaRegCreditCard/>
                             <span className="is-drawer-close:hidden">Payment History</span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Approve Riders" to="/dashboard/approve-riders">
+                            <FaMotorcycle />
+                            <span className="is-drawer-close:hidden">Approve Riders</span>
                             </NavLink>
                         </li>
 

@@ -14,6 +14,7 @@ import Payment from "../Pages/Dashboard/Payment/Payment";
 import PaymentSuccess from "../Pages/Dashboard/Payment/paymentSuccess";
 import PaymentCancelled from "../Pages/Dashboard/Payment/PaymentCancelled";
 import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
+import ApproveRiders from "../Pages/Dashboard/ApproveRiders/ApproveRiders";
 
 
 
@@ -100,6 +101,10 @@ export const router = createBrowserRouter([
       {
         path:'payment-cancelled',
         Component:PaymentCancelled
+      },
+      {
+        path:'approve-riders',
+        Component:ApproveRiders
       }
     ]
 
