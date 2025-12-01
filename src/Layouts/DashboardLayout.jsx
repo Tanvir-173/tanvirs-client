@@ -3,11 +3,14 @@ import { Link, NavLink, Outlet } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faBox } from '@fortawesome/free-solid-svg-icons';
 import { CiDeliveryTruck } from "react-icons/ci";
-import { FaMotorcycle, FaRegCreditCard } from "react-icons/fa";
+import { FaMotorcycle, FaRegCreditCard, FaUser, FaUsers } from "react-icons/fa";
+import useRole from '../Hooks/useRole';
+import { RiEBikeFill } from "react-icons/ri";
 
 
 
 const DashboardLayout = () => {
+    const { role } = useRole()
     return (
         <div className="drawer lg:drawer-open max-w-7xl mx-auto">
             <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -41,22 +44,39 @@ const DashboardLayout = () => {
 
                         <li>
                             <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="MyParcels" to="/dashboard/my-parcels">
-                            <CiDeliveryTruck />
-                            <span className="is-drawer-close:hidden">My Parcles</span>
+                                <CiDeliveryTruck />
+                                <span className="is-drawer-close:hidden">My Parcles</span>
                             </NavLink>
                         </li>
                         <li>
                             <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Payment History" to="/dashboard/payment-history">
-                            <FaRegCreditCard/>
-                            <span className="is-drawer-close:hidden">Payment History</span>
+                                <FaRegCreditCard />
+                                <span className="is-drawer-close:hidden">Payment History</span>
                             </NavLink>
                         </li>
-                        <li>
-                            <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Approve Riders" to="/dashboard/approve-riders">
-                            <FaMotorcycle />
-                            <span className="is-drawer-close:hidden">Approve Riders</span>
-                            </NavLink>
-                        </li>
+                        {
+                            role === "admin" && <>
+
+                                <li>
+                                    <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Approve Riders" to="/dashboard/approve-riders">
+                                        <FaMotorcycle />
+                                        <span className="is-drawer-close:hidden">Approve Riders</span>
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Assign Riders" to="/dashboard/assign-riders">
+                                        <RiEBikeFill />
+                                        <span className="is-drawer-close:hidden">Assign Riders</span>
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Users Management" to="/dashboard/users-management">
+                                        <FaUsers></FaUsers>
+                                        <span className="is-drawer-close:hidden">Users Management</span>
+                                    </NavLink>
+                                </li>
+                            </>
+                        }
 
                         {/* List item */}
                         <li>
