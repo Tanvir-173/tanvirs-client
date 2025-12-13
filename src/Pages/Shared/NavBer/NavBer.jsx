@@ -20,12 +20,13 @@ const NavBer = () => {
     const links=<>
         <li><NavLink to="">Services</NavLink></li>
         <li><NavLink to="">About Us</NavLink></li>
-        <li><NavLink to="/coverage">Coverage</NavLink></li>
+        <li><NavLink to="/coverage">Coverage Areas</NavLink></li>
         <li><NavLink to="/send-parcel">Send Parcel</NavLink></li>
         <li><NavLink to="/rider">Be a Rider</NavLink></li>
         {
            user && <>
             <li><NavLink to="/dashboard/my-parcels">My Parcels</NavLink></li>
+            <li><NavLink to="/dashboard">Dashoboard</NavLink></li>
             </>
         }
         

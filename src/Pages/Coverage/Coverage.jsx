@@ -19,7 +19,7 @@ const Coverage = () => {
 
     }
     return (
-        <div>
+        <div className="p-8">
             <h2 className="text-5xl"> we are available in 64 districts</h2>
             <div>
                 <form onSubmit={handleSearch}>

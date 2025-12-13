@@ -18,6 +18,11 @@ import ApproveRiders from "../Pages/Dashboard/ApproveRiders/ApproveRiders";
 import UsersManagement from "../Pages/Dashboard/UsersManagement/UsersManagement";
 import AdminRoute from "./AdminRoute";
 import AssignRiders from "../Pages/Dashboard/AssignRiders/AssignRiders";
+import RiderRoute from "./RiderRoute";
+import AssignedDeliveries from "../Pages/Dashboard/AssignedDeliveries/AssignedDeliveries";
+import CompletedDeliveries from "../Pages/Dashboard/CompletedDeliveries/CompletedDeliveries";
+import ParcelTrac from "../Pages/ParcelTrac/ParcelTrac";
+import DashboardHome from "../Pages/Dashboard/DashboardHome/DashboardHome";
 
 
 
@@ -54,6 +59,11 @@ export const router = createBrowserRouter([
         Component:Coverage,
         loader:() =>fetch('/ServiceCenter.json').then(res=>res.json())
 
+      },
+      {
+        path:'parcel-track/:trackingId',
+        Component:ParcelTrac
+
       }
       
 
@@ -83,6 +93,10 @@ export const router = createBrowserRouter([
     </PrivateRoute>,
     children:[
       {
+          index:true,
+          Component:DashboardHome
+      },
+      {
         path:'my-parcels',
         Component:Myparcels
 
@@ -105,6 +119,18 @@ export const router = createBrowserRouter([
         path:'payment-cancelled',
         Component:PaymentCancelled
       },
+      {
+        path:'assigned-deliveries',
+        element:<RiderRoute><AssignedDeliveries></AssignedDeliveries></RiderRoute>
+
+      },
+      {
+        path:'completed-deliveries',
+        element:<RiderRoute><CompletedDeliveries></CompletedDeliveries></RiderRoute>
+
+      },
+
+
       {
         path:'approve-riders',
         element:<AdminRoute><ApproveRiders></ApproveRiders></AdminRoute>
